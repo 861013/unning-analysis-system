@@ -1,0 +1,42 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <view class="user-section" wx:if="{{userInfo}}">
+    <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+    <text class="username">{{userInfo.username || '用户'}}</text>
+  </view>
+
+  <view class="stats-section">
+    <view class="stat-item">
+      <text class="stat-label">平均心率</text>
+      <text class="stat-value">{{statistics.heartRate.avg}} bpm</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">平均配速</text>
+      <text class="stat-value">{{statistics.pace.avg}} min/km</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">平均卡路里</text>
+      <text class="stat-value">{{statistics.calories.avg}} kcal</text>
+    </view>
+  </view>
+
+  <view class="menu-section">
+    <view class="menu-item" bindtap="goToInput">
+      <image class="menu-icon" src="/images/input.png"></image>
+      <text>数据录入</text>
+    </view>
+    <view class="menu-item" bindtap="goToList">
+      <image class="menu-icon" src="/images/list.png"></image>
+      <text>数据列表</text>
+    </view>
+    <view class="menu-item" bindtap="goToChart">
+      <image class="menu-icon" src="/images/chart.png"></image>
+      <text>数据图表</text>
+    </view>
+    <view class="menu-item" bindtap="goToPlan">
+      <image class="menu-icon" src="/images/plan.png"></image>
+      <text>训练计划</text>
+    </view>
+  </view>
+</view>
+

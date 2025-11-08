@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跑步分析系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏃 跑步分析系统</h1>
+            <p>基于NoSQL数据库的运动数据分析平台</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="showTab('input')">数据录入</button>
+            <button class="tab-btn" onclick="showTab('list')">数据列表</button>
+            <button class="tab-btn" onclick="showTab('chart')">数据图表</button>
+            <button class="tab-btn" onclick="showTab('export')">数据导出</button>
+        </nav>
+
+        <!-- 数据录入标签页 -->
+        <div id="input-tab" class="tab-content active">
+            <h2>数据录入</h2>
+            <form id="exercise-form" class="form-container">
+                <div class="form-section">
+                    <h3>基础信息</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>用户ID:</label>
+                            <input type="text" id="userId" value="user001" required>
+                        </div>
+                        <div class="form-group">
+                            <label>性别:</label>
+                            <select id="gender">
+                                <option value="">请选择</option>
+                                <option value="male">男</option>
+                                <option value="female">女</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>年龄:</label>
+                            <input type="number" id="age" min="1" max="120">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>身高 (cm):</label>
+                            <input type="number" id="height" min="1" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>体重 (kg):</label>
+                            <input type="number" id="weight" min="1" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>体脂率 (%):</label>
+                            <input type="number" id="bodyFat" min="0" max="100" step="0.1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>手环数据</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>心率 (bpm):</label>
+                            <input type="number" id="heartRate" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>配速 (min/km):</label>
+                            <input type="number" id="pace" min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>卡路里 (kcal):</label>
+                            <input type="number" id="calories" min="0">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>训练负荷:</label>
+                            <input type="number" id="trainingLoad" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>睡眠时长 (小时):</label>
+                            <input type="number" id="sleepDuration" min="0" step="0.1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>跑步机数据</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>速度 (km/h):</label>
+                            <input type="number" id="speed" min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>坡度 (%):</label>
+                            <input type="number" id="incline" min="0" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>时长 (分钟):</label>
+                            <input type="number" id="duration" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>距离 (km):</label>
+                            <input type="number" id="distance" min="0" step="0.1">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">提交数据</button>
+            </form>
+        </div>
+
+        <!-- 数据列表标签页 -->
+        <div id="list-tab" class="tab-content">
+            <h2>数据列表</h2>
+            <div class="filter-bar">
+                <input type="text" id="filter-userId" placeholder="用户ID筛选">
+                <button onclick="loadExerciseData()" class="btn-primary">刷新</button>
+            </div>
+            <div id="exercise-list" class="data-list"></div>
+        </div>
+
+        <!-- 数据图表标签页 -->
+        <div id="chart-tab" class="tab-content">
+            <h2>数据图表</h2>
+            <div class="chart-container">
+                <canvas id="heartRateChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="paceChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="caloriesChart"></canvas>
+            </div>
+            <div class="statistics">
+                <h3>统计数据</h3>
+                <div id="statistics-info"></div>
+            </div>
+        </div>
+
+        <!-- 数据导出标签页 -->
+        <div id="export-tab" class="tab-content">
+            <h2>数据导出</h2>
+            <div class="export-section">
+                <p>点击下方按钮导出所有数据为CSV格式</p>
+                <button onclick="exportCSVData()" class="btn-primary">导出CSV</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+

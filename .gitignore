@@ -1,0 +1,100 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# 数据文件
+*.db
+*.sqlite
+data/
+*.csv
+*.xlsx
+*.xls
+
+# 日志文件
+*.log
+logs/
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 视频文件（如果太大，可以不上传）
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+
+# 临时文件
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# 编译文件
+*.o
+*.a
+*.lib
+*.dll
+*.exe
+
+# MongoDB数据
+*.bson
+mongodb_data/
+
+# 上传的文件
+uploads/
+videos/
+
+# 缓存
+.cache/
+*.cache
+
+# 测试覆盖率
+.coverage
+htmlcov/
+.pytest_cache/
+
+# 其他
+*.orig
+*.rej
+
+# 虚拟环境（不提交）
+venv/
+env/
+ENV/
+.venv
+
+# 数据目录（不提交）
+data/
+
+# 敏感信息
+*.key
+*.pem
+*.cert
